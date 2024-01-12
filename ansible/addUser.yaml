@@ -2,16 +2,17 @@
 # RUN COMMAND: ansible-playbook addUser.yaml -i targets -e username=USERNAME -e password=PASSWORD --ask-pass
 - name: Create a new user and add to sudoers
   hosts: all
-  remote_user: root
+  remote_user: amattar
+  become: true
   tasks:
     - name: Create a new user
       user:
         name: "{{ username }}"
         password: "{{ password | password_hash('sha512') }}"
         shell: /bin/bash
-        append: true
-        groups: "sudo,users"
-        state: present
+        # append: true
+        # groups: "sudo,users"
+        # state: present
 
     # - name: Add the user to the sudoers group
     #   user:
